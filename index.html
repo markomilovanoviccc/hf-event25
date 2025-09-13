@@ -1,16 +1,745 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HF-Event 25</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bauen weltweit – HF Event 2025</title>
+  <meta name="description" content="Veranstaltungs-Webseite 'Bauen weltweit – HF Event 2025' mit Fullscreen-Startbild." />
+  <meta name="theme-color" content="#f4ead8" />
+  <link rel="icon" href="Images/hf25-logo.png" type="image/png">
+
+  <style>
+    :root{
+      --beige: #f4ead8;
+      --beige-2: #efe3cc;
+      --white: #ffffff;
+      --text: #2a2a2a;
+      --muted: #6b6b6b;
+      --radius: 4px;
+      --maxw: 1200px;
+      --header-h: 88px;
+      --beige-shadow: rgba(240,223,197,.92);
+    }
+
+    *, *::before, *::after{ box-sizing: border-box; }
+    html, body{ height: 100%; margin:0; }
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+      padding-top: var(--header-h);
+    }
+    img{ max-width: 100%; height: auto; display: block; }
+    h1,h2,h3{ line-height: 1.25; margin: 0 0 .5rem; }
+    p{ margin: 0 0 1rem; }
+    .container{ width: min(100% - 2rem, var(--maxw)); margin-inline: auto; }
+
+    /* Header */
+    header.site-header{
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      background: var(--white);
+      border-bottom: 1px solid var(--beige-2);
+      box-shadow: 0 2px 12px rgba(0,0,0,.05);
+    }
+    .header-inner{ height: var(--header-h); display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+    .brand{ display:flex; align-items:center; gap:.75rem; text-decoration:none; color:inherit; }
+    .brand img.logo{ height: 64px; width: auto; }
+    .brand .title{ font-weight: 700; letter-spacing: .2px; font-size: 1.15rem; }
+
+    .burger{ font-size: 1.9rem; cursor: pointer; background: none; border: none; color: var(--text); line-height: 1; }
+
+    nav.menu-top{
+      position: fixed; left: 0; right: 0; top: var(--header-h);
+      background: var(--white);
+      border-bottom: 1px solid var(--beige-2);
+      box-shadow: 0 6px 18px rgba(0,0,0,.08);
+      overflow: hidden; max-height: 0; opacity: 0;
+      transition: max-height .3s ease, opacity .2s ease;
+      z-index: 45;
+    }
+    nav.menu-top.open{ max-height: 70vh; opacity: 1; }
+    nav.menu-top .menu-inner{ width: min(100% - 2rem, var(--maxw)); margin: 0 auto; padding: 1rem 0 1.25rem; display: grid; gap: .25rem; }
+    nav.menu-top a.nav-item{ text-decoration: none; color: var(--text); padding: .6rem .4rem; font-size: 1.05rem; border-radius: var(--radius); }
+    nav.menu-top a.nav-item:hover{ background: var(--beige); }
+
+    /* Hero */
+    .hero{
+      height: 100vh;
+      background: url('Images/hero.png') center center / cover no-repeat;
+      display:flex; align-items:center; justify-content:center; text-align:center; color:#fff; position:relative;
+    }
+    .hero::after{ content:""; position:absolute; inset:0; background:rgba(0,0,0,0.45); }
+    .hero-inner{ position:relative; z-index:1; max-width: 90%; }
+    .hero h1{ font-size: clamp(2.4rem, 5vw + 1rem, 4.5rem); margin:0; font-weight:700; }
+    .hero p{ font-size:1.3rem; margin-top:1rem; }
+
+    section{ padding: 3rem 0; }
+
+    /* Beige Schatten global (wo erlaubt) */
+    main img:not(.no-beige-shadow){
+      border-radius: var(--radius);
+      box-shadow: 16px 22px 46px -10px var(--beige-shadow), 2px 6px 14px rgba(0,0,0,.08);
+    }
+
+    /* Über uns */
+    #ueber-uns{ text-align: center; padding: 6rem 1rem; }
+    #ueber-uns h2{ font-size: 2.4rem; margin-bottom: 2.2rem; }
+    #ueber-uns img{ max-width: 1100px; width: 100%; height: auto; margin: 0 auto 3rem auto; display: block; }
+    #ueber-uns p{ max-width: 900px; margin: 0 auto 1.5rem auto; font-size: 1.1rem; }
+
+    /* Eventlocation */
+    #eventlocation{ text-align: center; padding: 6rem 1rem; }
+    #eventlocation h2{ font-size: 2.4rem; margin-bottom: 2.2rem; }
+    .img-band{ background: var(--beige); padding: 1rem 0; margin: 0; }
+    .text-band{ background: var(--beige); padding: 2rem 0; margin: 0; }
+    .img-band + .text-band{ margin-top: 0; }
+    .img-stack{ width: min(100% - 2rem, 1100px); margin: 0 auto; display: grid; gap: 1rem; grid-template-columns: 1fr; }
+    @media (min-width: 800px){ .img-stack{ grid-template-columns: 1fr 1fr; } }
+    .img-cell{ height: clamp(200px, 32vw, 360px); overflow: hidden; }
+    .img-cell img{ width: 100%; height: 100%; object-fit: cover; border-radius: 0; box-shadow: none; }
+    #eventlocation .text{ width: min(100% - 2rem, 950px); margin: 0 auto; font-size: 1.08rem; text-align: left; }
+    #eventlocation img{ box-shadow: none !important; }
+
+    /* Programm */
+    #programm{ padding: 6rem 1rem; }
+    #programm h2{ text-align:center; font-size:2.4rem; margin-bottom: 2rem; }
+    .program-grid{ width: min(100% - 2rem, var(--maxw)); margin: 0 auto; display: grid; gap: 2rem; }
+    .program-item{
+      display: grid;
+      grid-template-columns: minmax(260px, 420px) 1fr;
+      gap: 1.5rem;
+      align-items: start;
+      padding: 1.25rem;
+      border-radius: var(--radius);
+      background: transparent;
+    }
+    .program-item.reverse{
+      grid-template-columns: 1fr minmax(260px, 420px);
+      background: var(--beige);
+    }
+    #programm .portrait img{ width: 100%; height: auto; object-fit: contain; box-shadow: none !important; border-radius: var(--radius); }
+    #programm .content{ align-self: center; }
+    #programm h3{ margin: 0 0 .5rem; font-size: 1.4rem; }
+    .program-meta{ color: var(--muted); margin-bottom: .75rem; font-size: .95rem; }
+
+    @media (max-width: 799px){
+      .program-item, .program-item.reverse{ grid-template-columns: 1fr; }
+    }
+
+    /* Organisationskomitee */
+    #orga{ background: var(--beige); padding: 4rem 1rem; text-align: center; }
+    #orga h2{ font-size: 2.2rem; margin-bottom: 2rem; }
+    #orga .orga-img{ max-width: 500px; margin: 0 auto; }
+    #orga img{ width: 100%; height: auto; border-radius: var(--radius); box-shadow: none; }
+
+    /* Anreise */
+    .anreise { padding: 6rem 1rem; background: var(--white); }
+    .anreise h2 { text-align: center; font-size: 2.4rem; margin-bottom: 2rem; }
+    .anreise-grid { display: grid; gap: 2rem; grid-template-columns: 1fr; margin-bottom: 2rem; }
+    .anreise-block h3 { margin-bottom: .5rem; }
+    .anreise-block p { margin-bottom: 1rem; }
+    @media (min-width: 800px){ .anreise-grid { grid-template-columns: 1fr 1fr; } }
+    .map iframe { border-radius: var(--radius); box-shadow: 0 4px 14px rgba(0,0,0,.1); }
+    .anreise .btn{
+      display:inline-block; background:#b08c6e; color:#fff; padding:.6rem 1.2rem; border-radius:var(--radius);
+      text-decoration:none; font-weight:500; transition:background .2s ease;
+    }
+    .anreise .btn:hover{ background:#8c6a4d; }
+
+    /* Sponsoren */
+    #sponsoren{ padding: 6rem 1rem; background: var(--white); text-align: center; }
+    #sponsoren h2{ font-size: 2.4rem; margin-bottom: 2.5rem; }
+    .sponsor-group{ width:min(100% - 2rem, 1100px); margin:0 auto 3.5rem; }
+    .sponsor-group h3{
+      display:inline-block; padding:.4rem 1rem; border-radius:6px; font-size:1.3rem; font-weight:600; color:#fff;
+    }
+    .sponsor-group.gold h3{ background:#d4af37; }
+    .sponsor-group.silver h3{ background:#9e9e9e; }
+    .sponsor-group.bronze h3{ background:#cd7f32; }
+    .sponsor-poster{ display:block; width:100%; height:auto; border-radius:var(--radius); box-shadow:none !important; }
+
+    /* Hauptsponsoren – Slider */
+    .hs{ width: min(100% - 2rem, 900px); margin: 0 auto 3.5rem; }
+    .hs h3{ display:inline-block; padding:.45rem 1rem; border-radius:6px; font-size:1.3rem; font-weight:600; color:#fff; background:#111; margin-bottom:1rem; }
+    .hs-wrap{ position:relative; overflow:hidden; border-radius: var(--radius); }
+    .hs-track{ display:flex; transition: transform .4s ease; will-change: transform; }
+    .hs-slide{ flex:0 0 100%; display:grid; place-items:center; background:#f7f7f7; }
+    .hs-slide img{ width:100%; height:auto; display:block; object-fit:contain; }
+    .hs-btn{ position:absolute; top:50%; transform:translateY(-50%); width:46px; height:46px; border:none; border-radius:50%; background:rgba(0,0,0,.6); color:#fff; cursor:pointer; display:grid; place-items:center; font-size:1.1rem; }
+    .hs-btn:hover{ background:rgba(0,0,0,.75); }
+    .hs-prev{ left:.5rem; } .hs-next{ right:.5rem; }
+    .hs-dots{ display:flex; gap:.5rem; justify-content:center; margin-top:.75rem; }
+    .hs-dot{ width:8px; height:8px; border-radius:50%; background:#d0d0d0; border:none; cursor:pointer; }
+    .hs-dot[aria-current="true"]{ background:#6b6b6b; }
+
+/* Galerie */
+#galerie{ padding:6rem 1rem; background:var(--white); text-align:center; }
+    #galerie h2{ font-size:2.4rem; margin-bottom:.5rem; }
+    #galerie .sub{ color:var(--muted); font-size:1.1rem; }
+    /* Optionaler Platzhalterrahmen – einfach später löschen */
+    #galerie .ph{
+      width:min(100% - 2rem, 900px); margin:2rem auto 0;
+      border:2px dashed #e2e2e2; border-radius:12px; padding:3rem 1rem; color:#999;
+    }
+
+/* Kontakt – BEIGER Block */
+#kontakt.contact{
+  background: #f4ead8;          /* beige */
+  padding: 6rem 1rem;
+}
+#kontakt .container{
+  width: min(100% - 2rem, 1200px);
+  margin: 0 auto;
+}
+#kontakt h2{
+  text-align: center;
+  font-size: 2.4rem;
+  margin-bottom: 2rem;
+}
+.contact-grid{
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr;    /* mobil */
+}
+@media (min-width: 900px){
+  .contact-grid{ grid-template-columns: 1fr 1.2fr; } /* Info | Formular */
+}
+.contact-card{
+  background: #fff;
+  border: 1px solid #efe3cc;     /* hell-beige */
+  border-radius: 4px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,.06);
+}
+.contact-card h3{ margin:0 0 .75rem; font-size:1.2rem; }
+.contact-card p{ margin:.35rem 0; }
+
+.contact-form .row{ display:flex; gap:.8rem; }
+.contact-form .row > *{ flex:1; }
+.contact-form label{ display:block; font-size:.95rem; margin:.2rem 0 .25rem; }
+.contact-form input,
+.contact-form textarea{
+  width:100%;
+  padding:.7rem .8rem;
+  border:1px solid #efe3cc;
+  border-radius:4px;
+  background:#fff;
+  font:inherit;
+}
+.contact-form textarea{ min-height:180px; resize:vertical; }
+.contact-form .consent{ display:flex; gap:.5rem; align-items:flex-start; font-size:.95rem; margin:.5rem 0 1rem; }
+.contact-form .btn{
+  display:inline-block;
+  background:#b08c6e; color:#fff; border:0;
+  padding:.75rem 1.2rem; border-radius:4px; cursor:pointer;
+}
+.contact-form .btn:hover{ background:#8c6a4d; }
+
+/* QR unten zentriert */
+#kontakt .qr-wrap{
+  text-align:center; margin-top:2.5rem;
+}
+#kontakt .qr-wrap h3{ margin:0 0 .25rem; font-size:1.35rem; }
+#kontakt .qr{
+  width:min(300px, 60vw);
+  height:auto;
+  display:inline-block;
+  border-radius:4px;
+  box-shadow: 0 4px 14px rgba(0,0,0,.1);
+}
+
+
+
+/* Formular */
+.kontakt-form{ display:grid; gap: .9rem; }
+.k-row{ display:grid; gap:.9rem; grid-template-columns: 1fr; }
+.k-field{
+  display:flex; flex-direction:column; gap:.35rem;
+}
+.k-field label{ font-size:.95rem; color:#444; }
+.k-field input,
+.k-field textarea{
+  padding:.8rem .9rem;
+  border:1px solid #ddd;
+  border-radius:8px;
+  font: inherit;
+  outline: none;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.k-field input:focus, .k-field textarea:focus{
+  border-color:#c9b08f;
+  box-shadow: 0 0 0 3px rgba(200,170,130,.15);
+}
+.k-help{ font-size:.85rem; color: var(--muted); }
+.k-consent{ display:flex; align-items:flex-start; gap:.55rem; font-size:.92rem; color:#444; }
+
+.k-btn{
+  justify-self:start;
+  background:#b08c6e; color:#fff;
+  border:none; border-radius:8px;
+  padding:.7rem 1.2rem; cursor:pointer;
+  font-weight:600;
+  transition: filter .15s ease, transform .02s;
+}
+.k-btn:hover{ filter:brightness(.95); }
+.k-btn:active{ transform: translateY(1px); }
+
+.k-success{
+  display:none;
+  margin-top:.8rem;
+  padding:.75rem 1rem;
+  border-radius:8px;
+  background:#f4ead8;
+  border:1px solid var(--beige-2);
+}
+
+/* 2-spaltig ab Tablet */
+@media (min-width: 900px){
+  .kontakt-grid{ grid-template-columns: 420px 1fr; align-items:start; }
+  .k-row{ grid-template-columns: 1fr 1fr; }
+}
+</style>
+
+    
+  </style>
 </head>
 <body>
-  <div class="container">
-    <img src="hf25-logo.png" alt="HF-Event 25 Logo" class="logo">
-    <h1>HF-Event 25</h1>
-    <p>Diese Webseite ist gerade in Arbeit und wird demnächst erstellt.</p>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#home" class="brand" aria-label="Bauen weltweit – HF Event 2025">
+        <img src="Images/hf25-logo.png" alt="Bauen weltweit Logo" class="logo">
+        <span class="title">HF Event 2025</span>
+      </a>
+      <button class="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menuTop">☰</button>
+    </div>
+    <nav class="menu-top" id="menuTop">
+      <div class="menu-inner">
+        <a href="#home" class="nav-item">Home</a>
+        <a href="#ueber-uns" class="nav-item">Über uns</a>
+        <a href="#eventlocation" class="nav-item">Eventlocation</a>
+        <a href="#programm" class="nav-item">Programm</a>
+        <a href="#anreise" class="nav-item">Anreise/Parkplätze</a>
+        <a href="#sponsoren" class="nav-item">Sponsoren</a>
+        <a href="#galerie" class="nav-item">Galerie</a>
+        <a href="#kontakt" class="nav-item">Kontakt</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <div class="hero-inner">
+      <h1>Bauen weltweit – HF Event 2025</h1>
+      <p>Wir freuen uns Sie an unserem HF Event zu begrüssen</p>
+    </div>
+  </section>
+
+  <main>
+    <!-- Über uns -->
+    <section id="ueber-uns">
+      <h2>Über uns</h2>
+      <img src="Images/Team.jpg" alt="Das Team der HF-Hochbau Klasse">
+      <p>Wir, die Abschlussklasse der HF-Hochbau in Winterthur, laden herzlich zu unserem offiziellen HF-Event ein. Unter dem Oberthema <em>Bauen weltweit</em> präsentieren wir unsere Diplomarbeiten und geben einen Einblick in unsere Projekte, die sich mit aktuellen Fragestellungen und Herausforderungen des Hochbaus auseinandersetzen.</p>
+      <p>Mit diesem Anlass möchten wir die Ergebnisse unserer Diplomarbeiten vorstellen und den fachlichen Austausch zwischen Studierenden, Fachleuten und Interessierten fördern.</p>
+      <p>Wir freuen uns sehr, Sie an diesem besonderen Morgen begrüssen zu dürfen.</p>
+    </section>
+
+    <!-- Eventlocation -->
+    <section id="eventlocation">
+      <h2>Eventlocation</h2>
+      <div class="img-band">
+        <div class="img-stack">
+          <div class="img-cell"><img src="Images/Runway1.jpg" alt="Restaurant Runway 34 – Aussenansicht bei Nacht" class="no-beige-shadow"></div>
+          <div class="img-cell"><img src="Images/Runway2.jpg" alt="Restaurant Runway 34 – gedeckte Tische neben dem Flugzeug" class="no-beige-shadow"></div>
+        </div>
+      </div>
+      <div class="text-band">
+        <div class="text">
+          <p><strong>Restaurant Runway 34 – Zürich</strong></p>
+          <p>Das Restaurant Runway 34 ist ein einzigartiger Ort, der Kulinarik und Aviatik auf besondere Weise verbindet. Direkt am Flughafen Zürich gelegen, erleben Gäste eine unvergleichliche Atmosphäre zwischen Flugzeugen, Hangar-Feeling und stilvollem Ambiente. Mit seiner architektonisch eindrucksvollen Gestaltung, dem historischen Flugzeug im Zentrum und einer hervorragenden Küche bietet Runway 34 den idealen Rahmen für besondere Anlässe.</p>
+          <p>Wir bedanken uns herzlich beim Restaurant Runway 34 dafür, dass wir unseren Abschluss-Event in dieser aussergewöhnlichen Umgebung durchführen dürfen – ein Ort, der unseren Anlass unvergesslich macht.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Programm -->
+    <section id="programm">
+      <h2>Programm</h2>
+      <div class="program-grid">
+        <!-- 1 -->
+        <article class="program-item">
+          <div class="portrait"><img src="Images/Portrait1.jpg" alt="Portrait – Sprecherin/Sprecher 1"></div>
+          <div class="content">
+            <h3>Skandinavien vs Schweiz</h3>
+            <div class="details">
+              <p>Skandinavien ist bekannt für seine langen Winter, Polar-Tage und -Nächte und viel Natur. Dies beeinflusst die Gebäude stark und setzt andere Anforderungen als in der Schweiz voraus. Gleichzeitig gibt es nicht nur winterliches Klima, sondern auch Küsten im Westen und ähnliche klimatische Bedingungen wie bei uns im Süden. Der hohe Waldanteil – teilweise bis zu 70% der Landesfläche – rückt den Werkstoff Holz in ein anderes Licht. Einfache Materialbeschaffung und bessere Wärmedämmeigenschaften als andere Materialien führten früher dazu, dass die meisten Gebäude hauptsächlich aus Holz gebaut wurden. Technische Fortschritte sowie Gesetze und Normen haben sich über die Zeit etabliert und werden laufend angepasst oder geändert, um möglichst gute Gebäude zu schaffen.</p>
+              <p>Doch was ist „perfekt“? Auf diese Frage wird sicher jede Person eine andere Antwort geben. So sind Gesetze und Normen in unterschiedlichen Ländern ebenfalls unterschiedlich. In der Schweiz ist jedes Gebäude – vereinfacht gesagt – ein Prototyp. Wenn ein Architekt jedes Fenster mit anderen Massen möchte, wird das so hergestellt. Neue Detaillösungen werden ständig geplant, geprüft und – wenn möglich – umgesetzt. Ist das nötig? In Skandinavien ist gerade bei kleineren, ländlicheren Gebäuden vieles stärker genormt. In der Produktion können mehr Elemente vorproduziert werden, was zu schnelleren Lieferzeiten und teilweise geringeren Produktionskosten führt – Punkte, die heute immer mehr gewünscht sind.</p>
+              <p><em>Welche Länder machen es also besser?</em></p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2 -->
+        <article class="program-item reverse">
+          <div class="content">
+            <h3>Burj Khalifa vs Roche Tower</h3>
+            <div class="details">
+              <p>Der Bau des Burj Khalifa in Dubai zeigt eindrucksvoll, dass extreme Gebäudehöhen selbst unter den klimatisch schwierigen Bedingungen der Wüste möglich sind. Nur durch innovative Tragwerkskonzepte, spezielle Fassadenlösungen und ein tiefgreifendes Fundament konnte das höchste Gebäude der Welt realisiert werden.</p>
+              <p>Im Vergleich dazu macht der Roche Tower 2 in Basel deutlich, mit welchen Herausforderungen europäische Hochhäuser konfrontiert sind: begrenzter Stadtraum, strenge Bauvorschriften und ein geologisch anspruchsvoller Baugrund. Beide Beispiele verdeutlichen, dass Hochhäuser immer Antworten auf ihre Umgebung und die jeweiligen Anforderungen sind.</p>
+              <p><em>Welche Unterschiede und Gemeinsamkeiten im Hochhausbau zeigen sich zwischen dem Burj Khalifa in der Wüste Dubais und dem Roche Tower 2 im dichten Stadtraum Basels?</em></p>
+            </div>
+          </div>
+          <div class="portrait"><img src="Images/Portrait2.jpg" alt="Portrait – Sprecher 2"></div>
+        </article>
+
+        <!-- 3 -->
+        <article class="program-item">
+          <div class="portrait"><img src="Images/Portrait5.jpg" alt="Portrait – Sprecher 3"></div>
+          <div class="content">
+            <h3>Lebenszyklus und Klimabilanz</h3>
+            <div class="details">
+              <p>Im Gebäudesektor verschiebt sich der Fokus zunehmend von der reinen Betriebsenergie hin zu den gesamten CO₂-Emissionen über den Lebenszyklus eines Baus. Während moderne Neubauten durch Effizienzstandards wie Minergie im Betrieb sehr wenig Heizenergie benötigen, steigt dadurch zugleich der Anteil der sogenannten grauen Energie aus Materialien und Technik.</p>
+              <p>Lebenszyklusanalysen zeigen jedoch, dass zusätzliche Einsparungen im Betrieb ökologisch nicht immer sinnvoll sind, wenn sie durch einen überproportionalen Materialaufwand erkauft werden. Daraus ergibt sich die provokante Frage, ob ein einfach gesetzeskonformes Gebäude über seine Lebensdauer nicht sogar die bessere Klimabilanz aufweisen kann.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4 -->
+        <article class="program-item reverse">
+          <div class="content">
+            <h3>Drohnen im Bauwesen</h3>
+            <div class="details">
+              <p>Drohnen eröffnen im Bauwesen neue Möglichkeiten für Vermessung, Dokumentation und Planung. Mit modernster Sensorik lassen sich präzise Luftaufnahmen und detaillierte 3D-Modelle in kurzer Zeit erstellen. Dies ermöglicht eine schnelle und effiziente Erfassung von Baufortschritten, Geländestrukturen oder schwer zugänglichen Bereichen.</p>
+              <p>Gegenüber klassischen Methoden bieten Drohnen mehr Flexibilität, Zeitersparnis und höhere Datengenauigkeit. Gleichzeitig müssen Aspekte wie Wetterbedingungen, Flugzonen und rechtliche Vorschriften berücksichtigt werden.</p>
+              <p>Für Bauleiter, Ingenieure und Architekten entsteht so ein innovatives Werkzeug, das Planung und Ausführung nachhaltig unterstützt und neue Standards in der Baupraxis setzt.</p>
+            </div>
+          </div>
+          <div class="portrait"><img src="Images/Portrait6.jpg" alt="Portrait – Sprecher 4"></div>
+        </article>
+
+        <!-- 5 -->
+        <article class="program-item">
+          <div class="portrait"><img src="Images/Portrait4.jpg" alt="Portrait – Sprecher 5"></div>
+          <div class="content">
+            <h3>Vorteile der Zentrumsnähe der Schweizer Landwirtschaft in der Energiewende</h3>
+            <div class="details">
+              <p>Der weltweite Ausbau von Gebäuden und Infrastruktur erfordert enorme Energiemengen, was die Bedeutung einer nachhaltigen Energieversorgung noch verstärkt. Landwirtschaftsbetriebe können hierbei eine Schlüsselrolle übernehmen, da sie durch Biogas, Photovoltaik oder Windkraft nicht nur ihre eigenen Betriebe versorgen, sondern auch überschüssige Energie ins Netz einspeisen. So tragen sie zur regionalen Energieunabhängigkeit bei und verbinden Nahrungsmittelproduktion mit erneuerbarer Energieerzeugung.</p>
+              <p><em>Welche Chancen und Herausforderungen sehen Sie darin, dass Landwirtschaftsbetriebe künftig nicht nur Lebensmittel, sondern auch Energie für unsere Gesellschaft bereitstellen?</em></p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 6 -->
+        <article class="program-item reverse">
+          <div class="content">
+            <h3>Bilbao-Effekt</h3>
+            <div class="details">
+              <p>Die weltberühmte Guggenheim-Eröffnung in Bilbao löste in den 1990er-Jahren einen weltweiten Trend aus: Ein einziges ikonisches Bauwerk konnte eine ganze Stadt neu beleben – wirtschaftlich, kulturell und gesellschaftlich. Dieses Phänomen wird als <strong>Bilbao-Effekt</strong> bezeichnet. Unsere Arbeit untersucht, welche politischen, wirtschaftlichen und kulturellen Rahmenbedingungen nötig sind, damit ein solcher Effekt entstehen kann, und welche Rolle Akteure wie Politik, Bevölkerung und Stadtplanung dabei spielen.</p>
+              <p>Im direkten Vergleich stellen wir internationale Beispiele den Schweizer Projekten gegenüber. Dabei wird sichtbar: Die Schweiz verfügt über Architektur von Weltrang – präzise, innovativ und international anerkannt. Doch weshalb gelingt es diesen Bauwerken nicht, eine vergleichbare Wucht im städtischen Kontext zu entfalten wie etwa in Bilbao, Hamburg oder Sydney? <strong>Liegt es an politischen Hürden, kultureller Zurückhaltung oder schlicht am fehlenden Willen zu visionären Projekten?</strong></p>
+            </div>
+          </div>
+          <div class="portrait"><img src="Images/Portrait3.jpg" alt="Portrait – Sprecher 6"></div>
+        </article>
+
+        <!-- Platzhalter -->
+        <article class="program-item">
+          <div class="portrait"><div class="placeholder" aria-label="Platzhalter-Bild">Bild folgt</div></div>
+          <div class="content">
+            <h3>Winterthur-Chicago im Vergleich</h3>
+            <div class="details">
+              <p>Die zwei Städte Winterthur und Chicago könnten unterschiedlicher nicht sein …</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Organisationskomitee -->
+    <section id="orga">
+      <h2>Organisationskomitee</h2>
+      <div class="orga-img">
+        <img src="Images/Portrait7.jpg" alt="Organisationskomitee" class="no-beige-shadow">
+      </div>
+    </section>
+
+    <!-- Anreise -->
+    <section id="anreise" class="anreise">
+      <div class="container">
+        <h2>Anreise & Parkplätze</h2>
+        <p>Das <strong>Restaurant Runway 34</strong> liegt direkt am Flughafen Zürich und ist sowohl mit öffentlichen Verkehrsmitteln als auch mit dem Auto bequem erreichbar.</p>
+
+        <div class="anreise-grid">
+          <div class="anreise-block">
+            <h3>Anreise mit dem Zug (SBB)</h3>
+            <p>Der nächstgelegene Bahnhof ist <strong>Zürich Flughafen</strong>. Von dort erreichen Sie das Restaurant Runway&nbsp;34 bequem mit dem <strong>Tram</strong>.</p>
+            <p>Steigen Sie in die Linie <strong>T10</strong> oder <strong>T12</strong> und fahren Sie bis zur Haltestelle <strong>Glattbrugg, Unterriet</strong>. Von dort sind es nur wenige Gehminuten bis zum Restaurant.</p>
+            <a href="https://www.sbb.ch/de/fahrplan.html" target="_blank" rel="noopener" class="btn">SBB-Fahrplan öffnen</a>
+          </div>
+
+          <div class="anreise-block">
+            <h3>Anreise mit dem Auto</h3>
+            <p>Adresse:<br>
+              Restaurant Runway 34<br>
+              Rohrstrasse 67<br>
+              8152 Opfikon-Glattbrugg (Zürich Flughafen)</p>
+            <p>Parkplätze sind <strong>direkt beim Restaurant</strong> verfügbar.</p>
+          </div>
+        </div>
+
+        <div class="map">
+          <iframe
+            src="https://www.google.com/maps?q=Restaurant+Runway+34,+Rohrstrasse+67,+8152+Opfikon&z=16&output=embed"
+            width="100%" height="420" style="border:0;" allowfullscreen=""
+            loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sponsoren -->
+    <section id="sponsoren">
+      <div class="container">
+        <!-- Hauptsponsoren Slider -->
+        <div class="hs" id="hauptsponsoren">
+          <h3>Hauptsponsoren</h3>
+          <div class="hs-wrap" data-hs>
+            <div class="hs-track">
+              <div class="hs-slide"><img src="Images/HS - Baubod3 AG.jpg" alt="Hauptsponsor: Baubod3 AG" loading="lazy"></div>
+              <div class="hs-slide"><img src="Images/HS - Maggio Gipser.jpg" alt="Hauptsponsor: Maggio Gipser-Malergeschäft AG" loading="lazy"></div>
+              <div class="hs-slide"><img src="Images/HS - ROBAUEN.jpg" alt="Hauptsponsor: ROBAUEN AG" loading="lazy"></div>
+              <div class="hs-slide"><img src="Images/HS - Weilenmann.jpg" alt="Hauptsponsor: Weilenmann AG" loading="lazy"></div>
+            </div>
+            <button class="hs-btn hs-prev" aria-label="Vorheriger Sponsor">‹</button>
+            <button class="hs-btn hs-next" aria-label="Nächster Sponsor">›</button>
+          </div>
+          <div class="hs-dots" aria-label="Navigation"></div>
+        </div>
+
+        <h2>Sponsoren</h2>
+
+        <div class="sponsor-group gold">
+          <h3>Gold-Sponsoren</h3>
+          <img src="Images/Goldsponsoren.jpg" alt="Gold-Sponsoren" class="sponsor-poster no-beige-shadow">
+        </div>
+
+        <div class="sponsor-group silver">
+          <h3>Silber-Sponsoren</h3>
+          <img src="Images/Silbersponsoren.jpg" alt="Silber-Sponsoren" class="sponsor-poster no-beige-shadow">
+        </div>
+
+        <div class="sponsor-group bronze">
+          <h3>Bronze-Sponsoren</h3>
+          <img src="Images/Bronzesponsoren.jpg" alt="Bronze-Sponsoren" class="sponsor-poster no-beige-shadow">
+        </div>
+      </div>
+    </section>
+
+    <!-- Galerie (NEU) -->
+<section id="galerie">
+    <div class="container" style="text-align:center;">
+      <h2>Galerie</h2>
+      <div class="sub">Folgt …</div>
+  
+      <!-- Platzhalter-Box – später entfernen und durch Grid/Slider ersetzen -->
+      <div class="ph">Hier entsteht unsere Bildgalerie vom Event.</div>
+    </div>
+  </section>
+
+  </main>
+
+</main>
+
+
+
   </div>
+</section>
+
+
+
+
+  <footer>
+    <div class="container">
+      <small> <span id="y"></span> </small>
+    </div>
+
+    <!-- Kontakt (BEIGE) -->
+<section id="kontakt" class="contact">
+    <div class="container">
+      <h2>Kontakt</h2>
+  
+      <div class="contact-grid">
+        <!-- Info-Karte links -->
+        <div class="contact-card">
+          <h3>Kontakt & Auskunft</h3>
+          <p><strong>E-Mail:</strong> info@hf-event25.ch</p>
+          <p><strong>Telefon:</strong> +41 78 808 17 32</p>
+          <p><strong>Adresse:</strong><br> 
+            HF Hochbau Winterthur<br>
+            — Projekt «Bauen weltweit – HF Event 2025»</p>
+          <p style="color:#6b6b6b">Antwort in der Regel innerhalb von 1–2 Werktagen.</p>
+        </div>
+  
+        <!-- Formular rechts -->
+        <div class="contact-card contact-form">
+          <!-- Achtung: contact.php muss neben der index.html liegen -->
+          <form action="contact.php" method="post" accept-charset="utf-8" autocomplete="on">
+            <div class="row">
+              <div>
+                <label for="name">Name *</label>
+                <input id="name" name="name" type="text" required />
+              </div>
+              <div>
+                <label for="email">E-Mail *</label>
+                <input id="email" name="email" type="email" required />
+              </div>
+            </div>
+  
+            <label for="subject">Betreff</label>
+            <input id="subject" name="subject" type="text" placeholder="Worum geht es?" />
+  
+            <label for="message">Nachricht *</label>
+            <textarea id="message" name="message" required placeholder="Ihre Nachricht an uns …"></textarea>
+  
+            <label class="consent">
+              <input type="checkbox" name="consent" required />
+              <span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage gespeichert und verarbeitet werden.</span>
+            </label>
+  
+            <button class="btn" type="submit">Nachricht senden</button>
+          </form>
+        </div>
+      </div>
+  
+      <!-- QR-Anmeldung zentriert -->
+      <div class="qr-wrap">
+        <h3>Anmeldung zum Event</h3>
+        <p>Scannen Sie den QR-Code, um sich direkt für den Event anzumelden:</p>
+        <img src="Images/qr-anmeldung.png" alt="QR-Code Anmeldung"
+             class="qr" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" style="text-align:center; font-size:.9rem; color:#444;">
+      <p>© <span id="y"></span> HF Hochbau Klasse – Bauen weltweit Event</p>
+      <p>
+        <a href="impressum.html" style="color:inherit; text-decoration:underline;">Impressum</a> | 
+        <a href="datenschutz.html" style="color:inherit; text-decoration:underline;">Datenschutzerklärung</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Jahr automatisch einfügen
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+
+  
+  
+  
+  </footer>
+
+  <script>
+    // Jahr im Footer
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Burger-Menü
+    const burger = document.querySelector('.burger');
+    const menu   = document.querySelector('#menuTop');
+    burger.addEventListener('click', () => {
+      const isOpen = menu.classList.toggle('open');
+      burger.setAttribute('aria-expanded', isOpen);
+    });
+    document.querySelectorAll('#menuTop a').forEach(a =>
+      a.addEventListener('click', () => {
+        menu.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+      })
+    );
+
+    // Hauptsponsoren-Slider NACH DOM-Ladeende initialisieren
+    document.addEventListener('DOMContentLoaded', () => {
+      const wrap = document.querySelector('[data-hs]');
+      if(!wrap) return;
+
+      const track = wrap.querySelector('.hs-track');
+      const slides = Array.from(wrap.querySelectorAll('.hs-slide'));
+      const prev = wrap.querySelector('.hs-prev');
+      const next = wrap.querySelector('.hs-next');
+      const dotsWrap = wrap.parentElement.parentElement.querySelector('.hs-dots');
+      let i = 0;
+
+      slides.forEach((_, idx) => {
+        const b = document.createElement('button');
+        b.className = 'hs-dot';
+        b.setAttribute('aria-label', 'Zu Slide ' + (idx+1));
+        b.addEventListener('click', () => go(idx));
+        dotsWrap.appendChild(b);
+      });
+
+      function update(){
+        track.style.transform = `translateX(-${i * 100}%)`;
+        dotsWrap.querySelectorAll('.hs-dot').forEach((d,idx)=>{
+          d.setAttribute('aria-current', idx===i ? 'true' : 'false');
+        });
+      }
+      function go(n){
+        i = (n + slides.length) % slides.length;
+        update();
+      }
+      prev.addEventListener('click', () => go(i-1));
+      next.addEventListener('click', () => go(i+1));
+
+      // Keyboard & Swipe
+      let sx=0;
+      wrap.addEventListener('keydown', e=>{
+        if(e.key === 'ArrowLeft') go(i-1);
+        if(e.key === 'ArrowRight') go(i+1);
+      });
+      wrap.addEventListener('pointerdown', e=> sx=e.clientX, {passive:true});
+      wrap.addEventListener('pointerup', e=>{
+        const dx = e.clientX - sx;
+        if(Math.abs(dx)>40) dx>0 ? go(i-1) : go(i+1);
+      }, {passive:true});
+
+      update();
+    });
+
+    /* Kontaktformular -> öffnet Mailclient per mailto: */
+(function(){
+  const form = document.getElementById('kontaktForm');
+  if(!form) return;
+
+  const mailTo = 'hf-event@example.com'; // TODO: hier eure echte E-Mail eintragen
+  const success = document.getElementById('k-success');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    const name = document.getElementById('k-name').value.trim();
+    const mail = document.getElementById('k-mail').value.trim();
+    const subj = document.getElementById('k-subj').value.trim() || 'Kontaktanfrage – Webseite';
+    const msg  = document.getElementById('k-msg').value.trim();
+
+    if(!name || !mail || !msg || !document.getElementById('k-ok').checked){
+      alert('Bitte füllen Sie alle Pflichtfelder aus und bestätigen Sie die Einwilligung.');
+      return;
+    }
+
+    const body =
+      `Name: ${name}%0D%0A` +
+      `E-Mail: ${mail}%0D%0A%0D%0A` +
+      `Nachricht:%0D%0A${encodeURIComponent(msg)}`;
+
+    const url = `mailto:${mailTo}?subject=${encodeURIComponent(subj)}&body=${body}`;
+    window.location.href = url;
+
+    if(success){ success.style.display = 'block'; }
+  });
+})();
+
+  </script>
 </body>
 </html>
