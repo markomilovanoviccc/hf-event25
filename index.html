@@ -173,135 +173,51 @@
     .hs-dot{ width:8px; height:8px; border-radius:50%; background:#d0d0d0; border:none; cursor:pointer; }
     .hs-dot[aria-current="true"]{ background:#6b6b6b; }
 
-/* Galerie */
-#galerie{ padding:6rem 1rem; background:var(--white); text-align:center; }
+    /* Galerie */
+    #galerie{ padding:6rem 1rem; background:var(--white); text-align:center; }
     #galerie h2{ font-size:2.4rem; margin-bottom:.5rem; }
     #galerie .sub{ color:var(--muted); font-size:1.1rem; }
-    /* Optionaler Platzhalterrahmen – einfach später löschen */
     #galerie .ph{
       width:min(100% - 2rem, 900px); margin:2rem auto 0;
       border:2px dashed #e2e2e2; border-radius:12px; padding:3rem 1rem; color:#999;
     }
 
-/* Kontakt – BEIGER Block */
-#kontakt.contact{
-  background: #f4ead8;          /* beige */
-  padding: 6rem 1rem;
-}
-#kontakt .container{
-  width: min(100% - 2rem, 1200px);
-  margin: 0 auto;
-}
-#kontakt h2{
-  text-align: center;
-  font-size: 2.4rem;
-  margin-bottom: 2rem;
-}
-.contact-grid{
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: 1fr;    /* mobil */
-}
-@media (min-width: 900px){
-  .contact-grid{ grid-template-columns: 1fr 1.2fr; } /* Info | Formular */
-}
-.contact-card{
-  background: #fff;
-  border: 1px solid #efe3cc;     /* hell-beige */
-  border-radius: 4px;
-  padding: 1.25rem;
-  box-shadow: 0 4px 16px rgba(0,0,0,.06);
-}
-.contact-card h3{ margin:0 0 .75rem; font-size:1.2rem; }
-.contact-card p{ margin:.35rem 0; }
+    /* Kontakt – BEIGER Block */
+    #kontakt.contact{ background:#f4ead8; padding:6rem 1rem; }
+    #kontakt .container{ width:min(100% - 2rem, 1200px); margin:0 auto; }
+    #kontakt h2{ text-align:center; font-size:2.4rem; margin-bottom:2rem; }
+    .contact-grid{ display:grid; gap:2rem; grid-template-columns:1fr; }
+    @media (min-width: 900px){ .contact-grid{ grid-template-columns: 1fr 1.2fr; } }
+    .contact-card{
+      background:#fff; border:1px solid #efe3cc; border-radius:4px;
+      padding:1.25rem; box-shadow:0 4px 16px rgba(0,0,0,.06);
+    }
+    .contact-card h3{ margin:0 0 .75rem; font-size:1.2rem; }
+    .contact-card p{ margin:.35rem 0; }
 
-.contact-form .row{ display:flex; gap:.8rem; }
-.contact-form .row > *{ flex:1; }
-.contact-form label{ display:block; font-size:.95rem; margin:.2rem 0 .25rem; }
-.contact-form input,
-.contact-form textarea{
-  width:100%;
-  padding:.7rem .8rem;
-  border:1px solid #efe3cc;
-  border-radius:4px;
-  background:#fff;
-  font:inherit;
-}
-.contact-form textarea{ min-height:180px; resize:vertical; }
-.contact-form .consent{ display:flex; gap:.5rem; align-items:flex-start; font-size:.95rem; margin:.5rem 0 1rem; }
-.contact-form .btn{
-  display:inline-block;
-  background:#b08c6e; color:#fff; border:0;
-  padding:.75rem 1.2rem; border-radius:4px; cursor:pointer;
-}
-.contact-form .btn:hover{ background:#8c6a4d; }
+    .contact-form .row{ display:flex; gap:.8rem; }
+    .contact-form .row > *{ flex:1; }
+    .contact-form label{ display:block; font-size:.95rem; margin:.2rem 0 .25rem; }
+    .contact-form input,
+    .contact-form textarea{
+      width:100%; padding:.7rem .8rem; border:1px solid #efe3cc;
+      border-radius:4px; background:#fff; font:inherit;
+    }
+    .contact-form textarea{ min-height:180px; resize:vertical; }
+    .contact-form .consent{ display:flex; gap:.5rem; align-items:flex-start; font-size:.95rem; margin:.5rem 0 1rem; }
+    .contact-form .btn{
+      display:inline-block; background:#b08c6e; color:#fff; border:0;
+      padding:.75rem 1.2rem; border-radius:4px; cursor:pointer;
+    }
+    .contact-form .btn:hover{ background:#8c6a4d; }
 
-/* QR unten zentriert */
-#kontakt .qr-wrap{
-  text-align:center; margin-top:2.5rem;
-}
-#kontakt .qr-wrap h3{ margin:0 0 .25rem; font-size:1.35rem; }
-#kontakt .qr{
-  width:min(300px, 60vw);
-  height:auto;
-  display:inline-block;
-  border-radius:4px;
-  box-shadow: 0 4px 14px rgba(0,0,0,.1);
-}
-
-
-
-/* Formular */
-.kontakt-form{ display:grid; gap: .9rem; }
-.k-row{ display:grid; gap:.9rem; grid-template-columns: 1fr; }
-.k-field{
-  display:flex; flex-direction:column; gap:.35rem;
-}
-.k-field label{ font-size:.95rem; color:#444; }
-.k-field input,
-.k-field textarea{
-  padding:.8rem .9rem;
-  border:1px solid #ddd;
-  border-radius:8px;
-  font: inherit;
-  outline: none;
-  transition: border-color .15s ease, box-shadow .15s ease;
-}
-.k-field input:focus, .k-field textarea:focus{
-  border-color:#c9b08f;
-  box-shadow: 0 0 0 3px rgba(200,170,130,.15);
-}
-.k-help{ font-size:.85rem; color: var(--muted); }
-.k-consent{ display:flex; align-items:flex-start; gap:.55rem; font-size:.92rem; color:#444; }
-
-.k-btn{
-  justify-self:start;
-  background:#b08c6e; color:#fff;
-  border:none; border-radius:8px;
-  padding:.7rem 1.2rem; cursor:pointer;
-  font-weight:600;
-  transition: filter .15s ease, transform .02s;
-}
-.k-btn:hover{ filter:brightness(.95); }
-.k-btn:active{ transform: translateY(1px); }
-
-.k-success{
-  display:none;
-  margin-top:.8rem;
-  padding:.75rem 1rem;
-  border-radius:8px;
-  background:#f4ead8;
-  border:1px solid var(--beige-2);
-}
-
-/* 2-spaltig ab Tablet */
-@media (min-width: 900px){
-  .kontakt-grid{ grid-template-columns: 420px 1fr; align-items:start; }
-  .k-row{ grid-template-columns: 1fr 1fr; }
-}
-</style>
-
-    
+    /* QR unten zentriert */
+    #kontakt .qr-wrap{ text-align:center; margin-top:2.5rem; }
+    #kontakt .qr-wrap h3{ margin:0 0 .25rem; font-size:1.35rem; }
+    #kontakt .qr{
+      width:min(300px, 60vw); height:auto; display:inline-block;
+      border-radius:4px; box-shadow:0 4px 14px rgba(0,0,0,.1);
+    }
   </style>
 </head>
 <body>
@@ -535,95 +451,76 @@
       </div>
     </section>
 
-    <!-- Galerie (NEU) -->
-<section id="galerie">
-    <div class="container" style="text-align:center;">
-      <h2>Galerie</h2>
-      <div class="sub">Folgt …</div>
-  
-      <!-- Platzhalter-Box – später entfernen und durch Grid/Slider ersetzen -->
-      <div class="ph">Hier entsteht unsere Bildgalerie vom Event.</div>
-    </div>
-  </section>
+    <!-- Galerie -->
+    <section id="galerie">
+      <div class="container" style="text-align:center;">
+        <h2>Galerie</h2>
+        <div class="sub">Folgt …</div>
+        <div class="ph">Hier entsteht unsere Bildgalerie vom Event.</div>
+      </div>
+    </section>
 
+    <!-- Kontakt -->
+    <section id="kontakt" class="contact">
+      <div class="container">
+        <h2>Kontakt</h2>
+
+        <div class="contact-grid">
+          <!-- Info-Karte links -->
+          <div class="contact-card">
+            <h3>Kontakt & Auskunft</h3>
+            <p><strong>E-Mail:</strong> info@hf-event25.ch</p>
+            <p><strong>Telefon:</strong> +41 78 808 17 32</p>
+            <p><strong>Adresse:</strong><br> 
+              HF Hochbau Winterthur<br>
+              — Projekt «Bauen weltweit – HF Event 2025»</p>
+            <p style="color:#6b6b6b">Antwort in der Regel innerhalb von 1–2 Werktagen.</p>
+          </div>
+
+          <!-- Formular rechts -->
+          <div class="contact-card contact-form">
+            <!-- Achtung: contact.php muss neben der index.html liegen -->
+            <form action="contact.php" method="post" accept-charset="utf-8" autocomplete="on">
+              <div class="row">
+                <div>
+                  <label for="name">Name *</label>
+                  <input id="name" name="name" type="text" required />
+                </div>
+                <div>
+                  <label for="email">E-Mail *</label>
+                  <input id="email" name="email" type="email" required />
+                </div>
+              </div>
+
+              <label for="subject">Betreff</label>
+              <input id="subject" name="subject" type="text" placeholder="Worum geht es?" />
+
+              <label for="message">Nachricht *</label>
+              <textarea id="message" name="message" required placeholder="Ihre Nachricht an uns …"></textarea>
+
+              <!-- FIX: sauberer Consent-Block -->
+              <div class="consent">
+                <input type="checkbox" id="consent" name="consent" required>
+                <label for="consent">
+                  Ich bin einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage
+                  gespeichert und verarbeitet werden.
+                </label>
+              </div>
+
+              <button class="btn" type="submit">Nachricht senden</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- QR-Anmeldung zentriert -->
+        <div class="qr-wrap">
+          <h3>Anmeldung zum Event</h3>
+          <p>Scannen Sie den QR-Code, um sich direkt für den Event anzumelden:</p>
+          <img src="images/qr-anmeldung.png" alt="QR-Code Anmeldung" class="qr" loading="lazy">
+        </div>
+      </div>
+    </section>
   </main>
-
-</main>
-
-
-
-  </div>
-</section>
-
-
-
-
-  <footer>
-    <div class="container">
-      <small> <span id="y"></span> </small>
-    </div>
-
-    <!-- Kontakt (BEIGE) -->
-<section id="kontakt" class="contact">
-    <div class="container">
-      <h2>Kontakt</h2>
-  
-      <div class="contact-grid">
-        <!-- Info-Karte links -->
-        <div class="contact-card">
-          <h3>Kontakt & Auskunft</h3>
-          <p><strong>E-Mail:</strong> info@hf-event25.ch</p>
-          <p><strong>Telefon:</strong> +41 78 808 17 32</p>
-          <p><strong>Adresse:</strong><br> 
-            HF Hochbau Winterthur<br>
-            — Projekt «Bauen weltweit – HF Event 2025»</p>
-          <p style="color:#6b6b6b">Antwort in der Regel innerhalb von 1–2 Werktagen.</p>
-        </div>
-  
-        <!-- Formular rechts -->
-        <div class="contact-card contact-form">
-          <!-- Achtung: contact.php muss neben der index.html liegen -->
-          <form action="contact.php" method="post" accept-charset="utf-8" autocomplete="on">
-            <div class="row">
-              <div>
-                <label for="name">Name *</label>
-                <input id="name" name="name" type="text" required />
-              </div>
-              <div>
-                <label for="email">E-Mail *</label>
-                <input id="email" name="email" type="email" required />
-              </div>
-            </div>
-  
-            <label for="subject">Betreff</label>
-            <input id="subject" name="subject" type="text" placeholder="Worum geht es?" />
-  
-            <label for="message">Nachricht *</label>
-            <textarea id="message" name="message" required placeholder="Ihre Nachricht an uns …"></textarea>
-  
-            <label class="consent">
-             <div class="consent">
-  <input type="checkbox" id="consent" name="consent" required>
-  <label for="consent">
-    Ich bin einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage
-    gespeichert und verarbeitet werden.
-  </label>
-</div>
-  
-            <button class="btn" type="submit">Nachricht senden</button>
-          </form>
-        </div>
-      </div>
-  
-      <!-- QR-Anmeldung zentriert -->
-      <div class="qr-wrap">
-        <h3>Anmeldung zum Event</h3>
-        <p>Scannen Sie den QR-Code, um sich direkt für den Event anzumelden:</p>
-        <img src="images/qr-anmeldung.png" alt="QR-Code Anmeldung"
-             class="qr" loading="lazy">
-      </div>
-    </div>
-  </section>
 
   <footer>
     <div class="container" style="text-align:center; font-size:.9rem; color:#444;">
@@ -633,16 +530,6 @@
         <a href="datenschutz.html" style="color:inherit; text-decoration:underline;">Datenschutzerklärung</a>
       </p>
     </div>
-  </footer>
-
-  <script>
-    // Jahr automatisch einfügen
-    document.getElementById('y').textContent = new Date().getFullYear();
-  </script>
-
-  
-  
-  
   </footer>
 
   <script>
@@ -663,7 +550,7 @@
       })
     );
 
-    // Hauptsponsoren-Slider NACH DOM-Ladeende initialisieren
+    // Hauptsponsoren-Slider
     document.addEventListener('DOMContentLoaded', () => {
       const wrap = document.querySelector('[data-hs]');
       if(!wrap) return;
@@ -689,10 +576,7 @@
           d.setAttribute('aria-current', idx===i ? 'true' : 'false');
         });
       }
-      function go(n){
-        i = (n + slides.length) % slides.length;
-        update();
-      }
+      function go(n){ i = (n + slides.length) % slides.length; update(); }
       prev.addEventListener('click', () => go(i-1));
       next.addEventListener('click', () => go(i+1));
 
@@ -710,40 +594,6 @@
 
       update();
     });
-
-    /* Kontaktformular -> öffnet Mailclient per mailto: */
-(function(){
-  const form = document.getElementById('kontaktForm');
-  if(!form) return;
-
-  const mailTo = 'hf-event@example.com'; // TODO: hier eure echte E-Mail eintragen
-  const success = document.getElementById('k-success');
-
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-
-    const name = document.getElementById('k-name').value.trim();
-    const mail = document.getElementById('k-mail').value.trim();
-    const subj = document.getElementById('k-subj').value.trim() || 'Kontaktanfrage – Webseite';
-    const msg  = document.getElementById('k-msg').value.trim();
-
-    if(!name || !mail || !msg || !document.getElementById('k-ok').checked){
-      alert('Bitte füllen Sie alle Pflichtfelder aus und bestätigen Sie die Einwilligung.');
-      return;
-    }
-
-    const body =
-      `Name: ${name}%0D%0A` +
-      `E-Mail: ${mail}%0D%0A%0D%0A` +
-      `Nachricht:%0D%0A${encodeURIComponent(msg)}`;
-
-    const url = `mailto:${mailTo}?subject=${encodeURIComponent(subj)}&body=${body}`;
-    window.location.href = url;
-
-    if(success){ success.style.display = 'block'; }
-  });
-})();
-
   </script>
 </body>
 </html>
