@@ -299,6 +299,85 @@
   .kontakt-grid{ grid-template-columns: 420px 1fr; align-items:start; }
   .k-row{ grid-template-columns: 1fr 1fr; }
 }
+/* Timeline kompakt in der Kontakt-Karte */
+.timeline.timeline-card{
+  margin: .25rem 0 0;
+  position: relative;
+  padding-left: 0;
+  list-style: none;
+}
+.timeline.timeline-card::before{
+  content:"";
+  position:absolute; left:108px; top:0; bottom:0;
+  width:2px; background:#e6d9c4;
+}
+.timeline.timeline-card .t-item{
+  display:grid;
+  grid-template-columns: 108px 1fr;
+  gap: .75rem 1rem;
+  align-items:flex-start;
+  padding: .6rem 0;
+  position: relative;
+}
+.timeline.timeline-card .t-item::before{
+  content:"";
+  position:absolute; left:100px; top:14px;
+  width:10px; height:10px; border-radius:50%;
+  background:#c9b08f; box-shadow:0 0 0 3px #f7f1e6;
+}
+.timeline.timeline-card .t-time{
+  font-weight:700; color:#574c3d; white-space:nowrap;
+}
+.timeline.timeline-card .t-body{
+  background:#fff;
+  border:1px solid #efe3cc;
+  border-radius: var(--radius);
+  padding:.85rem 1rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,.06);
+}
+.timeline.timeline-card .t-title{ margin:0 0 .25rem; font-size:1.05rem; }
+@media (max-width: 699px){
+  .timeline.timeline-card::before{ left:88px; }
+  .timeline.timeline-card .t-item{ grid-template-columns: 88px 1fr; }
+  .timeline.timeline-card .t-item::before{ left:80px; }
+}
+/* Mehr Abstand zwischen Zeit, Punkt und Text in der Timeline (Kontakt-Karte) */
+.timeline.timeline-card .t-item {
+  grid-template-columns: 130px 1fr; /* mehr Platz für Zeit */
+  gap: 1rem 1.5rem;                /* mehr Abstand zwischen Spalten */
+}
+
+.timeline.timeline-card::before {
+  left: 125px; /* Linie weiter nach rechts */
+}
+
+.timeline.timeline-card .t-item::before {
+  left: 117px;          /* Punkt an die Linie angepasst */
+  width: 12px;          /* etwas größerer Punkt */
+  height: 12px;
+  top: 18px;
+}
+
+/* Gönner-Gruppe */
+.sponsor-group.goenner h3 {
+  background:#444;   /* neutral dunkel */
+  color:#fff;
+}
+
+.goenner-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 2rem;          /* Abstand zwischen den Namen */
+  justify-content: center;   /* zentrieren */
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.goenner-list span {
+  white-space: nowrap;   /* damit die Namen nicht umbrechen */
+}
+
 </style>
 
     
@@ -443,13 +522,15 @@
           <div class="portrait"><img src="images/portrait3.jpg" alt="Portrait – Sprecher 6"></div>
         </article>
 
-        <!-- Platzhalter -->
+        <!-- 7 -->
         <article class="program-item">
-          <div class="portrait"><div class="placeholder" aria-label="Platzhalter-Bild">Bild folgt</div></div>
+          <div class="portrait"><img src="images/portrait8.jpg" alt="Portrait – Sprecher 7"></div>
           <div class="content">
             <h3>Winterthur-Chicago im Vergleich</h3>
             <div class="details">
-              <p>Die zwei Städte Winterthur und Chicago könnten unterschiedlicher nicht sein …</p>
+              <p>Die zwei Städte Winterthur und Chicago könnten unterschiedlicher nicht sein. Die beiden Städte entwickelten sich über die Jahre sehr unterschiedlich. Eine Stadt schoss in die Höhe die andere blieb mehrheitlich flach. Chicago ist die Geburtsstädte der Wolkenkratzer und gilt in den USA als wichtige Handelstadt. Winterthur entwickelte sich von einer Industriestadt zu einer Dienstleistungs-, Bildungs und Kulturstadt...
+                Welche Einflüsse haben die Städte zu dem gemacht, was sie heute sind? Wie gingen die Städte mit ihren Herausforderungen im Verkehrsnetz und dem knapp werdenden
+                Baugrund um? Was kann Winterthur von Chicago lernen?"</p>
             </div>
           </div>
         </article>
@@ -505,10 +586,13 @@
           <h3>Hauptsponsoren</h3>
           <div class="hs-wrap" data-hs>
             <div class="hs-track">
+              <div class="hs-slide"><img src="images/hs-robauen.jpg" alt="Hauptsponsor: ROBAUEN AG" loading="lazy"></div>
               <div class="hs-slide"><img src="images/hs-baubod3.jpg" alt="Hauptsponsor: Baubod3 AG" loading="lazy"></div>
               <div class="hs-slide"><img src="images/hs-maggio_gipser.jpg" alt="Hauptsponsor: Maggio Gipser-Malergeschäft AG" loading="lazy"></div>
-              <div class="hs-slide"><img src="images/hs-robauen.jpg" alt="Hauptsponsor: ROBAUEN AG" loading="lazy"></div>
               <div class="hs-slide"><img src="images/hs-weilenmann.jpg" alt="Hauptsponsor: Weilenmann AG" loading="lazy"></div>
+              <div class="hs-slide"><img src="images/hs-tke.jpg" alt="Hauptsponsor: TK Aufzüge AG" loading="lazy"></div>
+              <div class="hs-slide"><img src="images/hs-buildagil.jpg" alt="Hauptsponsor: B3 digital AG" loading="lazy"></div>
+              <div class="hs-slide"><img src="images/hs-dasteam.jpg" alt="Hauptsponsor: dasteam ag" loading="lazy"></div>
             </div>
             <button class="hs-btn hs-prev" aria-label="Vorheriger Sponsor">‹</button>
             <button class="hs-btn hs-next" aria-label="Nächster Sponsor">›</button>
@@ -532,7 +616,16 @@
           <h3>Bronze-Sponsoren</h3>
           <img src="images/bronzesponsoren.jpg" alt="Bronze-Sponsoren" class="sponsor-poster no-beige-shadow">
         </div>
-      </div>
+
+        <div class="sponsor-group goenner">
+          <h3>Gönner</h3>
+          <div class="goenner-list">
+            <span>Gartenbau Markus Stieger AG</span>
+            <span>Rykart Gerüstbau AG</span>
+            <span>Streiff Unterlagsboden AG</span>
+          </div>
+        </div>
+        
     </section>
 
     <!-- Galerie (NEU) -->
@@ -563,63 +656,67 @@
       <small> <span id="y"></span> </small>
     </div>
 
-    <!-- Kontakt (BEIGE) -->
-<section id="kontakt" class="contact">
-    <div class="container">
-      <h2>Kontakt</h2>
-  
-      <div class="contact-grid">
-        <!-- Info-Karte links -->
-        <div class="contact-card">
-          <h3>Kontakt & Auskunft</h3>
-          <p><strong>E-Mail:</strong> info@hf-event25.ch</p>
-          <p><strong>Telefon:</strong> +41 78 808 17 32</p>
-          <p><strong>Adresse:</strong><br> 
-            HF Hochbau Winterthur<br>
-            — Projekt «Bauen weltweit – HF Event 2025»</p>
-          <p style="color:#6b6b6b">Antwort in der Regel innerhalb von 1–2 Werktagen.</p>
+    <section id="kontakt" class="contact">
+      <div class="container">
+        <h2>Information</h2>
+    
+        <div class="contact-grid">
+          <!-- LINKE KARTE: unverändert -->
+          <div class="contact-card">
+            <h3>Kontakt & Auskunft</h3>
+            <p><strong>E-Mail:</strong> info@hf-event25.ch</p>
+            <p><strong>Telefon:</strong> +41 78 808 17 32</p>
+            <p><strong>Adresse:</strong><br> 
+              HF Hochbau Winterthur<br>
+              — Projekt «Bauen weltweit – HF Event 2025»</p>
+            <p style="color:#6b6b6b">Antwort in der Regel innerhalb von 1–2 Werktagen.</p>
+          </div>
+    
+          <!-- RECHTE KARTE: Programm im gleichen Stil -->
+          <div class="contact-card">
+            <h3>Ablauf</h3>
+            <ol class="timeline timeline-card" role="list">
+              <li class="t-item">
+                <div class="t-time">08:30</div>
+                <div class="t-body">
+                  <h4 class="t-title">Türöffnung & Empfang</h4>
+                  <p>Check-in, Begrüssung, Platz nehmen.</p>
+                </div>
+              </li>
+              <li class="t-item">
+                <div class="t-time">08:30–12:00</div>
+                <div class="t-body">
+                  <h4 class="t-title">Event / Programm</h4>
+                  <p>Vorträge & Präsentationen zum Thema <em>Bauen weltweit</em> (Ende ca. 12:00).</p>
+                </div>
+              </li>
+              <li class="t-item">
+                <div class="t-time">12:00–13:00</div>
+                <div class="t-body">
+                  <h4 class="t-title">Apéro</h4>
+                  <p>Geselliges Ausklingen & Networking.</p>
+                </div>
+              </li>
+              <li class="t-item">
+                <div class="t-time">13:00</div>
+                <div class="t-body">
+                  <h4 class="t-title">Ende</h4>
+                  <p>Vielen Dank für Ihren Besuch!</p>
+                </div>
+              </li>
+            </ol>
+          </div>
         </div>
-  
-        <!-- Formular rechts -->
-        <div class="contact-card contact-form">
-          <!-- Achtung: contact.php muss neben der index.html liegen -->
-          <form action="contact.php" method="post" accept-charset="utf-8" autocomplete="on">
-            <div class="row">
-              <div>
-                <label for="name">Name *</label>
-                <input id="name" name="name" type="text" required />
-              </div>
-              <div>
-                <label for="email">E-Mail *</label>
-                <input id="email" name="email" type="email" required />
-              </div>
-            </div>
-  
-            <label for="subject">Betreff</label>
-            <input id="subject" name="subject" type="text" placeholder="Worum geht es?" />
-  
-            <label for="message">Nachricht *</label>
-            <textarea id="message" name="message" required placeholder="Ihre Nachricht an uns …"></textarea>
-  
-            <label class="consent">
-              
-              
-            </label>
-  
-            <button class="btn" type="submit">Nachricht senden</button>
-          </form>
+    
+        <!-- QR-Anmeldung (bleibt) -->
+        <div class="qr-wrap">
+          <h3>Anmeldung zum Event</h3>
+          <p>Scannen Sie den QR-Code, um sich direkt für den Event anzumelden:</p>
+          <img src="images/qr-anmeldung.png" alt="QR-Code Anmeldung" class="qr" loading="lazy">
         </div>
       </div>
-  
-      <!-- QR-Anmeldung zentriert -->
-      <div class="qr-wrap">
-        <h3>Anmeldung zum Event</h3>
-        <p>Scannen Sie den QR-Code, um sich direkt für den Event anzumelden:</p>
-        <img src="images/qr-anmeldung.png" alt="QR-Code Anmeldung"
-             class="qr" loading="lazy">
-      </div>
-    </div>
-  </section>
+    </section>
+    
 
   <footer>
     <div class="container" style="text-align:center; font-size:.9rem; color:#444;">
@@ -706,39 +803,6 @@
 
       update();
     });
-
-    /* Kontaktformular -> öffnet Mailclient per mailto: */
-(function(){
-  const form = document.getElementById('kontaktForm');
-  if(!form) return;
-
-  const mailTo = 'hf-event@example.com'; // TODO: hier eure echte E-Mail eintragen
-  const success = document.getElementById('k-success');
-
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-
-    const name = document.getElementById('k-name').value.trim();
-    const mail = document.getElementById('k-mail').value.trim();
-    const subj = document.getElementById('k-subj').value.trim() || 'Kontaktanfrage – Webseite';
-    const msg  = document.getElementById('k-msg').value.trim();
-
-    if(!name || !mail || !msg || !document.getElementById('k-ok').checked){
-      alert('Bitte füllen Sie alle Pflichtfelder aus und bestätigen Sie die Einwilligung.');
-      return;
-    }
-
-    const body =
-      `Name: ${name}%0D%0A` +
-      `E-Mail: ${mail}%0D%0A%0D%0A` +
-      `Nachricht:%0D%0A${encodeURIComponent(msg)}`;
-
-    const url = `mailto:${mailTo}?subject=${encodeURIComponent(subj)}&body=${body}`;
-    window.location.href = url;
-
-    if(success){ success.style.display = 'block'; }
-  });
-})();
 
   </script>
 </body>
